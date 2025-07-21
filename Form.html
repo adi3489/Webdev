@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registration Form</title>
+  </head>
+  <body>
+    <h1>Registration Form</h1>
+
+    <form>
+      <label for="name">Name:</label><br />
+      <input type="text" id="name" name="name" required /><br /><br />
+
+      <label for="roll">Roll No:</label><br />
+      <input type="text" id="roll" name="roll" required /><br /><br />
+
+      <label for="dob">Date of Birth:</label><br />
+      <input type="date" id="dob" name="dob" required /><br /><br />
+
+      <label for="course">Select Course:</label><br />
+      <select id="course" name="course" required>
+        <option value="">--Choose--</option>
+        <option value="aws">AWS</option>
+        <option value="java">Java</option></select
+      ><br /><br />
+
+      <label>Rate the course (1 to 5):</label><br />
+      <input type="radio" name="rating" value="1" required /> 1
+      <input type="radio" name="rating" value="2" /> 2
+      <input type="radio" name="rating" value="3" /> 3
+      <input type="radio" name="rating" value="4" /> 4
+      <input type="radio" name="rating" value="5" /> 5 <br /><br />
+
+      <button type="submit">Submit</button>
+    </form>
+  </body>
+</html>
