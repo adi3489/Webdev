@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mondrian Layout</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      #a,
+      #b,
+      #c,
+      #d,
+      #e,
+      #f,
+      #g {
+        border: 4px solid black;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: #333;
+      }
+
+      #a,
+      #b,
+      #e,
+      #f {
+        background-color: white;
+      }
+
+      #c {
+        background-color: red;
+      }
+
+      #d {
+        background-color: #0033a0; /* deep blue */
+        color: white;
+      }
+
+      #g {
+        background-color: gold;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-secondary vh-100 d-flex justify-content-center align-items-center"
+  >
+    <div class="container" style="max-width: 600px">
+      <div class="row no-gutters">
+        <!-- Left Column (A on top of B) -->
+        <div class="col-4 d-flex flex-column">
+          <div id="a" style="height: 200px">A</div>
+          <div id="b" style="height: 200px">B</div>
+        </div>
+
+        <!-- Right Column (C spans height of A+B) -->
+        <div class="col-8">
+          <div id="c" style="height: 400px">C</div>
+        </div>
+      </div>
+
+      <!-- Bottom: D, E, F+G -->
+      <div class="row no-gutters">
+        <div class="col-4" id="d" style="height: 200px">D</div>
+        <div class="col-5" id="e" style="height: 200px">E</div>
+        <div class="col-3 d-flex flex-column">
+          <div id="f" style="height: 100px">F</div>
+          <div id="g" style="height: 100px">G</div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+  </body>
+</html>

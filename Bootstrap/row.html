@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Grid Layout</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      .box {
+        border: 5px solid black;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 24px;
+      }
+      .a {
+        background-color: #ddd;
+      }
+      .b {
+        background-color: #fff;
+      }
+      .c {
+        background-color: red;
+        color: white;
+        height: 200px;
+      }
+      .d {
+        background-color: #004b8d;
+        color: white;
+      }
+      .e {
+        background-color: #fff;
+      }
+      .f {
+        background-color: #fff;
+        height: 50px;
+      }
+      .g {
+        background-color: gold;
+        height: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row no-gutters">
+        <div class="col-2 box a">A</div>
+        <div class="col-10 box c">C</div>
+      </div>
+
+      <div class="row no-gutters">
+        <div class="col-2 box b">B</div>
+      </div>
+
+      <div class="row no-gutters">
+        <div class="col-2 box d">D</div>
+        <div class="col-8 box e">E</div>
+        <div class="col-1 box f">F</div>
+        <div class="col-1 box g">G</div>
+      </div>
+    </div>
+  </body>
+</html>

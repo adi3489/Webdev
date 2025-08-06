@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bootstrap Grid Layout</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      .cell {
+        border: 5px solid black;
+        height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: bold;
+      }
+      .a {
+        background: lightgray;
+        color: black;
+      }
+      .b {
+        background: white;
+        color: black;
+      }
+      .c {
+        background: red;
+      }
+      .d {
+        background: #004b8d;
+      }
+      .e {
+        background: white;
+        color: black;
+      }
+      .f {
+        background: white;
+        color: black;
+        height: 50px;
+      }
+      .g {
+        background: gold;
+        color: black;
+        height: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row no-gutters">
+        <div class="col-2">
+          <div class="cell a">A</div>
+          <div class="cell b">B</div>
+          <div class="cell d">D</div>
+        </div>
+
+        <div class="col-8">
+          <div class="cell c" style="height: 200px">C</div>
+          <div class="cell e">E</div>
+        </div>
+
+        <div class="col-2">
+          <div class="cell" style="height: 200px; border: none"></div>
+          <div class="cell f">F</div>
+          <div class="cell g">G</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
