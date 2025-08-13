@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chore Door!</title>
+    <link href="./style.css" rel="stylesheet" type="text/css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Work+Sans"
+      rel="stylesheet"
+      type="text/css"
+    />
+  </head>
+  <style>
+    body {
+      background-color: #010165;
+      margin: 0px;
+    }
+
+    .header {
+      background-color: #00ffff;
+      text-align: center;
+    }
+
+    .title-row {
+      margin-top: 42px;
+      text-align: center;
+      margin-bottom: 21px;
+    }
+
+    .instructions-title {
+      display: inline;
+      font-family: "Work Sans";
+      font-size: 18px;
+      color: #00ffff;
+    }
+
+    .instructions-row {
+      margin: 0 auto;
+      width: 400px;
+    }
+
+    .instructions-number {
+      padding-right: 25px;
+      font-family: "Work Sans";
+      font-size: 36px;
+      color: #00ffff;
+    }
+
+    .instructions-text {
+      padding: 10px;
+      font-family: "Work Sans";
+      font-size: 14px;
+      color: #ffffff;
+    }
+
+    .door-row {
+      text-align: center;
+    }
+
+    .door-frame {
+      cursor: pointer;
+      padding: 10px;
+    }
+
+    .start-row {
+      margin: auto;
+      width: 120px;
+      height: 43px;
+      background-color: #eb6536;
+      padding-top: 18px;
+      font-family: "Work Sans";
+      font-size: 18px;
+      text-align: center;
+      color: #010165;
+      margin-bottom: 9px;
+      cursor: pointer;
+    }
+  </style>
+  <body>
+    <div class="header">
+      <img
+        src="https://content.codecademy.com/projects/chore-door/images/logo.svg"
+      />
+    </div>
+
+    <div class="title-row">
+      <img
+        src="https://content.codecademy.com/projects/chore-door/images/star.svg"
+      />
+      <p class="instructions-title">Instructions</p>
+      <img
+        src="https://content.codecademy.com/projects/chore-door/images/star.svg"
+      />
+    </div>
+
+    <table class="instructions-row">
+      <tr>
+        <td class="instructions-number">1</td>
+        <td class="instructions-text">
+          Hiding behind one of these doors is the ChoreBot.
+        </td>
+      </tr>
+      <tr>
+        <td class="instructions-number">2</td>
+        <td class="instructions-text">
+          Your mission is to open all of the doors without running into the
+          ChoreBot.
+        </td>
+      </tr>
+      <tr>
+        <td class="instructions-number">3</td>
+        <td class="instructions-text">
+          If you manage to avoid the ChoreBot until you open the very last door,
+          you win!
+        </td>
+      </tr>
+      <tr>
+        <td class="instructions-number">4</td>
+        <td class="instructions-text">
+          See if you can score a winning streak!
+        </td>
+      </tr>
+    </table>
+
+    <div class="door-row">
+      <img
+        id="door1"
+        class="door-frame"
+        src="https://content.codecademy.com/projects/chore-door/images/closed_door.svg"
+      />
+      <img
+        id="door2"
+        class="door-frame"
+        src="https://content.codecademy.com/projects/chore-door/images/closed_door.svg"
+      />
+      <img
+        id="door3"
+        class="door-frame"
+        src="https://content.codecademy.com/projects/chore-door/images/closed_door.svg"
+      />
+    </div>
+
+    <div id="start" class="start-row">Good luck!</div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

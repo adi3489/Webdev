@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adhoc Responsive Website</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      .jumbotron {
+        background-color: #ddd;
+        text-align: center;
+        color: white;
+      }
+      .highlight {
+        font-weight: lighter;
+        font-size: 1.2rem;
+      }
+      .why-card {
+        text-align: center;
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 30px;
+      }
+      .carousel-caption {
+        background-color: rgba(0, 0, 0, 0.5);
+        border-radius: 10px;
+        padding: 10px;
+      }
+      footer {
+        background-color: #f8f9fa;
+        text-align: center;
+        padding: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <a class="navbar-brand" href="#">Adhoc</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNav"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active"><a class="nav-link" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Our Team</a></li>
+          <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- Jumbotron -->
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-3">Administration made easy</h1>
+        <p class="lead">
+          Adhoc is an on-demand administrative service for your company growth
+        </p>
+      </div>
+    </div>
+
+    <!-- Testimonial -->
+    <div class="container mb-5">
+      <blockquote class="blockquote text-center">
+        <p class="mb-0">
+          "Thanks to Adhoc we now have beautiful, faithful service every day.
+          Our customers are happy and engagement has drastically increased.
+          Highly recommend!"
+        </p>
+        <footer class="blockquote-footer">
+          Dave Elitzer, <cite title="Company">Academy of Code</cite>
+        </footer>
+      </blockquote>
+    </div>
+
+    <!-- Why Adhoc -->
+    <div class="container">
+      <h2 class="text-center mb-4">Why Adhoc?</h2>
+      <div class="row">
+        <div class="col-md-4 why-card bg-pink">
+          <h3>Experienced</h3>
+          <p>
+            Over 9000 happy clients, and we learn something new from each one.
+          </p>
+        </div>
+        <div class="col-md-4 why-card bg-warning">
+          <h3>Fun</h3>
+          <p>
+            Card body mini-vacation? Fun? Yes, that’s how we make it happen.
+          </p>
+        </div>
+        <div class="col-md-4 why-card bg-info">
+          <h3>Smart</h3>
+          <p>Innovative solutions to the trickiest of everyday tasks.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meet the Team -->
+    <div class="container mt-5">
+      <h2 class="text-center mb-4">Meet the Team</h2>
+      <div id="teamCarousel" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="https://via.placeholder.com/800x400"
+              class="d-block w-100"
+              alt="Team Member"
+            />
+            <div class="carousel-caption d-none d-md-block">
+              <h5 class="text-white">CEO: Brian M.</h5>
+            </div>
+          </div>
+          <!-- Add more carousel items if needed -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="mt-5">
+      <p>&copy; 2025 Adhoc</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

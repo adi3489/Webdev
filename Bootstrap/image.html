@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Rotate Image</title>
+    <style>
+      body {
+        text-align: center;
+        margin-top: 50px;
+      }
+      img {
+        transition: transform 0.3s ease;
+        width: 300px;
+        height: auto;
+      }
+      button {
+        margin: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <img
+      id="myImage"
+      src="WhatsApp Image 2025-07-17 at 14.17.45 (1).jpeg"
+      alt="Sample Image"
+    />
+
+    <br />
+    <button onclick="rotateLeft()">Rotate Left ⟲</button>
+    <button onclick="rotateRight()">Rotate Right ⟳</button>
+
+    <script>
+      let angle = 0; // current rotation in degrees
+
+      function rotateLeft() {
+        angle -= 90;
+        document.getElementById(
+          "myImage"
+        ).style.transform = `rotate(${angle}deg)`;
+      }
+
+      function rotateRight() {
+        angle += 90;
+        document.getElementById(
+          "myImage"
+        ).style.transform = `rotate(${angle}deg)`;
+      }
+    </script>
+  </body>
+</html>
