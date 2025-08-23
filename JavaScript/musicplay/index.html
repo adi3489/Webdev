@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Musicon</title>
+
+    <!-- 12: Link stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+
+    <!-- 21: Include Handlebars right after the CSS link -->
+    <script src="handlebars.min.js"></script>
+
+    <!-- 23–26: Home template -->
+    <script id="templateHB" type="text/x-handlebars-template">
+      <h1>{{title}}</h1>
+      <p>{{body}}</p>
+      <a href="store.html">Shop Now</a>
+    </script>
+  </head>
+
+  <body id="home">
+    <header>
+      <section class="container">
+        <h1 class="branding">Musicon</h1>
+
+        <!-- 2–9: Navbar with Home current -->
+        <nav>
+          <ul class="navbar">
+            <li class="current"><a href="index.html">Home</a></li>
+            <li><a href="store.html">Store</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </section>
+    </header>
+    <a href="store.html">Store</a>
+    <a href="contact.html">Contact</a>
+
+    <!-- 27: Empty container with id="information" -->
+    <div id="introduction">
+      <section class="container" id="information"></section>
+    </div>
+
+    <footer>
+      <p>&copy; Musicon 2018</p>
+    </footer>
+
+    <!-- 29–33: script loads after page -->
+    <script src="script.js"></script>
+  </body>
+</html>

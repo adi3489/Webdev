@@ -87,33 +87,21 @@ const notes = [];
 // });
 keys.forEach((key) => notes.push(document.getElementById(key)));
 
-// ----------------------
-// Step 1 & 2: Functions for key colors
-// ----------------------
 function keyPlay(event) {
-  event.target.style.backgroundColor = "yellow"; // pressed key turns blue
+  event.target.style.backgroundColor = "yellow";
 }
 
 function keyReturn(event) {
-  event.target.style.backgroundColor = ""; // reset back to default
+  event.target.style.backgroundColor = "";
 }
 
-// ----------------------
-// Step 3–5: Assign event handlers
-// ----------------------
 function assignEvents(note) {
   note.onmousedown = keyPlay;
   note.onmouseup = keyReturn;
 }
 
-// ----------------------
-// Step 6: Loop through notes to add events
-// ----------------------
 notes.forEach(assignEvents);
 
-// ----------------------
-// Progress buttons
-// ----------------------
 let nextOne = document.getElementById("first-next-line");
 let nextTwo = document.getElementById("second-next-line");
 let nextThree = document.getElementById("third-next-line");
@@ -121,14 +109,10 @@ let startOver = document.getElementById("fourth-next-line");
 
 let lastLyric = document.getElementById("column-optional");
 
-// hide buttons except first
 nextTwo.hidden = true;
 nextThree.hidden = true;
 startOver.hidden = true;
 
-// ----------------------
-// Step 8–10: First button click (Line 2)
-// ----------------------
 nextOne.onclick = function () {
   nextTwo.hidden = false;
   nextOne.hidden = true;
@@ -137,9 +121,6 @@ nextOne.onclick = function () {
   document.getElementById("letter-note-six").innerHTML = "C";
 };
 
-// ----------------------
-// Step 11–15: Second button click (Line 3)
-// ----------------------
 nextTwo.onclick = function () {
   nextThree.hidden = false;
   nextTwo.hidden = true;
@@ -154,9 +135,6 @@ nextTwo.onclick = function () {
   document.getElementById("letter-note-six").innerHTML = "B";
 };
 
-// ----------------------
-// Step 16–20: Third button click (Line 4)
-// ----------------------
 nextThree.onclick = function () {
   startOver.hidden = false;
   nextThree.hidden = true;
@@ -178,9 +156,6 @@ nextThree.onclick = function () {
   lastLyric.style.display = "none";
 };
 
-// ----------------------
-// Step 21: Reset button
-// ----------------------
 startOver.onclick = function () {
   nextOne.hidden = false;
   startOver.hidden = true;

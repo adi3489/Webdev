@@ -1,0 +1,222 @@
+/* General Rulesets (keeps your original look) */
+* {
+  color: #ffffff;
+}
+
+body {
+  font-family: Helvetica, sans-serif;
+  background: url("https://content.codecademy.com/courses/learn-handlebars/musicon/musicon_bg.png")
+    no-repeat center center fixed;
+  background-size: cover;
+}
+
+a {
+  text-decoration: none;
+}
+
+footer {
+  width: 100%;
+  text-align: center;
+  bottom: 0;
+  position: static;
+}
+
+header {
+  padding-top: 3%;
+  min-height: 70px;
+}
+
+/* === CHANGED: center containers and set width to 90% (Task 15) === */
+.container {
+  width: 90%;
+  margin: 0 auto;
+}
+
+/* keep branding/nav floats as before */
+.branding {
+  float: left;
+}
+
+.branding h1 {
+  font-weight: normal;
+}
+
+nav {
+  float: right;
+}
+
+.navbar {
+  margin-top: 15%;
+}
+
+.navbar li {
+  display: inline-block;
+  padding: 0 5px;
+}
+
+.navbar li a {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: normal;
+}
+
+.navbar li a:hover,
+.navbar .current a {
+  color: #ffffff;
+}
+
+/* Home Page Rulesets */
+/* === CHANGED: center intro text + spacing (Tasks 16 & 17) === */
+#introduction {
+  text-align: center; /* Task 16 */
+  margin-top: 15%; /* Task 17 (top) */
+  margin-bottom: 50%; /* Task 17 (bottom) */
+}
+
+#introduction h1 {
+  font-size: 60px;
+}
+
+/* tighten paragraph margins inside #introduction (avoid double large margins) */
+#introduction p {
+  margin: 1rem auto;
+  font-size: 18px;
+  font-weight: lighter;
+}
+
+#introduction a {
+  display: block;
+  width: 20%;
+  padding: 3% 8%;
+  margin: 0 auto;
+  color: #ffffff;
+  background-color: #4c7ef3;
+  border-radius: 4px;
+}
+
+#introduction a:hover {
+  background-color: #26a69a;
+}
+
+/* Store Page Rulesets */
+#showcase {
+  margin-top: 5%;
+  margin-bottom: 15%;
+}
+
+/* === CHANGED: visually separate instrument cards (Tasks 18-20) === */
+/* Background with opacity effect done via rgba to avoid making children semi-transparent */
+.instrument {
+  width: 90%;
+  overflow: auto;
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.9
+  ); /* white + 0.9 opacity (Task 18) */
+  padding: 2% 5%; /* Task 19: top/bottom 2%, left/right 5% */
+  margin: 5% auto; /* Task 19: top/bottom 5%, horizontally centered */
+  border-radius: 5px; /* Task 20 */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+/* Keep image/details alignment you already had */
+.image {
+  display: inline-block;
+  vertical-align: middle;
+  width: 32%;
+  min-width: 100px;
+  margin: 0 auto;
+}
+
+.details {
+  display: inline-block;
+  vertical-align: middle;
+  width: 60%;
+  margin: -1% auto;
+  padding: 2%;
+}
+
+/* text within the cards should be dark to read on white background */
+.name,
+.description,
+.price,
+del {
+  color: #000000;
+  text-align: left;
+}
+
+.description,
+.price {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+.description {
+  height: 100%;
+  font-size: 13px;
+  overflow: auto;
+}
+
+.price {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.sale {
+  margin-top: 0;
+  margin-bottom: 0;
+  color: #fa4359;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: left;
+}
+
+/* Contact Page Rulesets */
+#connection {
+  width: 100%;
+  margin: 15% auto;
+  text-align: center;
+}
+
+#top {
+  margin: 15% auto;
+}
+
+#top h2 {
+  margin: 3%;
+  font-size: 30px;
+  font-weight: normal;
+}
+
+#top p {
+  margin: 3%;
+  font-size: 18px;
+  font-weight: lighter;
+}
+
+.contact {
+  width: 100%;
+  margin: 10% auto;
+}
+
+.contact p,
+.contact ul {
+  margin: 1%;
+  font-size: 16px;
+  font-weight: lighter;
+}
+
+#location {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.container {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 20px;
+  text-align: center;
+  line-height: 1.6;
+}
