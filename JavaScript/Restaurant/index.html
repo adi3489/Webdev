@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aaja Khaja - Your Food Delivery Partner</title>
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for Icons -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background-color: #f7f9fc;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100">
+    <!-- Navigation Bar -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+      <div
+        class="container mx-auto px-4 py-4 flex justify-between items-center"
+      >
+        <a href="#" class="text-3xl font-bold text-gray-800 tracking-wide"
+          >Aaja Khaja</a
+        >
+        <div class="relative">
+          <button
+            id="cartButton"
+            class="bg-indigo-600 text-white rounded-full p-3 shadow-lg hover:bg-indigo-700 transition-colors duration-300 transform hover:scale-105"
+          >
+            <i class="fas fa-shopping-cart text-lg"></i>
+            <span
+              id="cartCount"
+              class="absolute -top-1 -right-1 bg-red-600 text-xs text-white rounded-full h-5 w-5 flex items-center justify-center font-bold"
+              >0</span
+            >
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container mx-auto px-4 py-8">
+      <!-- Main Restaurant Selection Section -->
+      <section id="restaurantList" class="space-y-6">
+        <h1 class="text-4xl font-extrabold text-gray-800 text-center mb-12">
+          Choose a Restaurant
+        </h1>
+        <div
+          id="restaurantCardsContainer"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          <!-- Restaurant cards will be dynamically added here by JavaScript -->
+        </div>
+      </section>
+
+      <!-- Restaurant Menu Section (hidden by default) -->
+      <section id="restaurantMenu" class="space-y-6 hidden">
+        <button
+          id="backToRestaurants"
+          class="text-gray-600 hover:text-gray-800 font-semibold mb-4"
+        >
+          <i class="fas fa-arrow-left mr-2"></i> Back to Restaurants
+        </button>
+        <h1
+          id="menuTitle"
+          class="text-4xl font-extrabold text-gray-800 text-center mb-12"
+        ></h1>
+        <div
+          id="menuItemsContainer"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          <!-- Menu items will be dynamically added here by JavaScript -->
+        </div>
+      </section>
+
+      <!-- Cart Modal (hidden by default) -->
+      <div
+        id="cartModal"
+        class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden"
+      >
+        <div class="bg-white rounded-xl shadow-2xl p-8 w-full max-w-lg mx-4">
+          <div class="flex justify-between items-center mb-6 border-b pb-4">
+            <h2 class="text-3xl font-bold text-gray-800">Your Cart</h2>
+            <button
+              id="closeCartModal"
+              class="text-gray-400 hover:text-gray-600 transition-colors duration-200"
+            >
+              <i class="fas fa-times text-xl"></i>
+            </button>
+          </div>
+          <div id="cartItems" class="space-y-4 max-h-96 overflow-y-auto pr-2">
+            <!-- Cart items will be dynamically added here -->
+          </div>
+          <div class="mt-6 pt-4 border-t">
+            <div class="flex justify-between items-center mb-4">
+              <span class="text-xl font-bold text-gray-700">Total:</span>
+              <span
+                id="cartTotal"
+                class="text-2xl font-extrabold text-indigo-600"
+                >$0.00</span
+              >
+            </div>
+            <button
+              id="placeOrderButton"
+              class="w-full bg-green-600 text-white font-bold py-3 rounded-lg shadow-lg hover:bg-green-700 transition-colors duration-300 transform hover:scale-105"
+            >
+              Place Order
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirmation Modal (hidden by default) -->
+      <div
+        id="confirmationModal"
+        class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden"
+      >
+        <div
+          class="bg-white rounded-xl shadow-2xl p-8 w-full max-w-sm mx-4 text-center"
+        >
+          <i
+            class="fas fa-check-circle text-green-500 text-6xl mb-4 animate-bounce"
+          ></i>
+          <h2 class="text-3xl font-bold text-gray-800 mb-2">Order Placed!</h2>
+          <p class="text-gray-600 mb-6">Your delicious food is on its way!</p>
+          <button
+            id="closeConfirmationModal"
+            class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300"
+          >
+            OK
+          </button>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-400 py-6 mt-12">
+      <div class="container mx-auto px-4 text-center">
+        <p>&copy; 2024 Aaja Khaja. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      // In-memory data to simulate a database for restaurants and their menus
+      const restaurants = [
+        {
+          id: "dhabas-delight",
+          name: "Dhaba's Delight",
+          cuisine: "Indian",
+          rating: 4.5,
+          image:
+            "https://placehold.co/400x250/a78bfa/ffffff?text=Dhaba's+Delight",
+          menu: [
+            {
+              id: 1,
+              name: "Butter Chicken",
+              price: 12.5,
+              description: "Creamy tomato-based curry with tender chicken.",
+            },
+            {
+              id: 2,
+              name: "Paneer Tikka Masala",
+              price: 11.0,
+              description: "Grilled cottage cheese in a rich, spicy gravy.",
+            },
+            {
+              id: 3,
+              name: "Naan Bread",
+              price: 2.0,
+              description: "Soft, leavened flatbread.",
+            },
+          ],
+        },
+        {
+          id: "taste-of-italy",
+          name: "Taste of Italy",
+          cuisine: "Italian",
+          rating: 4.8,
+          image:
+            "https://placehold.co/400x250/fca5a5/ffffff?text=Taste+of+Italy",
+          menu: [
+            {
+              id: 4,
+              name: "Margherita Pizza",
+              price: 15.0,
+              description: "Classic pizza with fresh mozzarella and basil.",
+            },
+            {
+              id: 5,
+              name: "Spaghetti Carbonara",
+              price: 14.5,
+              description: "Pasta with creamy sauce, egg, and bacon.",
+            },
+            {
+              id: 6,
+              name: "Lasagna",
+              price: 16.0,
+              description: "Layered pasta with meat and cheese.",
+            },
+          ],
+        },
+        {
+          id: "sushi-corner",
+          name: "Sushi Corner",
+          cuisine: "Japanese",
+          rating: 4.7,
+          image: "https://placehold.co/400x250/93c5fd/ffffff?text=Sushi+Corner",
+          menu: [
+            {
+              id: 7,
+              name: "California Roll",
+              price: 9.5,
+              description: "Crab, avocado, and cucumber roll.",
+            },
+            {
+              id: 8,
+              name: "Sake Nigiri",
+              price: 11.0,
+              description: "Fresh salmon on a bed of rice.",
+            },
+            {
+              id: 9,
+              name: "Edamame",
+              price: 5.0,
+              description: "Steamed soybeans with sea salt.",
+            },
+          ],
+        },
+        {
+          id: "burrito-bros",
+          name: "Burrito Bros",
+          cuisine: "Mexican",
+          rating: 4.3,
+          image: "https://placehold.co/400x250/a5f3fc/ffffff?text=Burrito+Bros",
+          menu: [
+            {
+              id: 10,
+              name: "Chicken Burrito",
+              price: 10.0,
+              description:
+                "Large flour tortilla with grilled chicken and toppings.",
+            },
+            {
+              id: 11,
+              name: "Guacamole & Chips",
+              price: 6.5,
+              description: "Fresh avocado dip with crispy tortilla chips.",
+            },
+            {
+              id: 12,
+              name: "Taco Salad",
+              price: 9.0,
+              description:
+                "Crispy taco shell filled with fresh salad and beans.",
+            },
+          ],
+        },
+      ];
+
+      let cart = [];
+
+      // DOM Elements
+      const restaurantListSection = document.getElementById("restaurantList");
+      const restaurantMenuSection = document.getElementById("restaurantMenu");
+      const menuTitle = document.getElementById("menuTitle");
+      const restaurantCardsContainer = document.getElementById(
+        "restaurantCardsContainer"
+      );
+      const menuItemsContainer = document.getElementById("menuItemsContainer");
+      const backButton = document.getElementById("backToRestaurants");
+      const cartButton = document.getElementById("cartButton");
+      const cartModal = document.getElementById("cartModal");
+      const closeCartModal = document.getElementById("closeCartModal");
+      const cartItemsList = document.getElementById("cartItems");
+      const cartTotalSpan = document.getElementById("cartTotal");
+      const cartCountSpan = document.getElementById("cartCount");
+      const placeOrderButton = document.getElementById("placeOrderButton");
+      const confirmationModal = document.getElementById("confirmationModal");
+      const closeConfirmationModal = document.getElementById(
+        "closeConfirmationModal"
+      );
+
+      // Function to render the list of restaurants
+      function renderRestaurants() {
+        restaurantCardsContainer.innerHTML = ""; // Clear existing cards
+        restaurants.forEach((restaurant) => {
+          const cardHtml = `
+                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden cursor-pointer transform hover:scale-105" data-restaurant-id="${
+                  restaurant.id
+                }">
+                    <img src="${restaurant.image}" alt="${
+            restaurant.name
+          }" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-2">${
+                          restaurant.name
+                        }</h3>
+                        <p class="text-gray-600 mb-3">${restaurant.cuisine}</p>
+                        <div class="flex items-center text-yellow-500 mb-4">
+                            ${'<i class="fas fa-star"></i>'.repeat(
+                              Math.floor(restaurant.rating)
+                            )}
+                            <span class="text-gray-500 ml-2 font-semibold">${
+                              restaurant.rating
+                            }</span>
+                        </div>
+                        <button class="w-full bg-indigo-600 text-white py-2 rounded-lg font-semibold hover:bg-indigo-700 transition-colors duration-300">
+                            View Menu
+                        </button>
+                    </div>
+                </div>
+            `;
+          restaurantCardsContainer.innerHTML += cardHtml;
+        });
+
+        // Add event listeners to the new restaurant cards
+        document
+          .querySelectorAll("#restaurantCardsContainer .bg-white")
+          .forEach((card) => {
+            card.addEventListener("click", (event) => {
+              const restaurantId = event.currentTarget.dataset.restaurantId;
+              const selectedRestaurant = restaurants.find(
+                (r) => r.id === restaurantId
+              );
+              if (selectedRestaurant) {
+                renderMenu(selectedRestaurant);
+              }
+            });
+          });
+      }
+
+      // Function to render the menu of a specific restaurant
+      function renderMenu(restaurant) {
+        // Show the menu section and hide the restaurant list
+        restaurantListSection.classList.add("hidden");
+        restaurantMenuSection.classList.remove("hidden");
+        menuTitle.textContent = restaurant.name;
+
+        menuItemsContainer.innerHTML = ""; // Clear existing menu items
+        restaurant.menu.forEach((item) => {
+          const itemHtml = `
+                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between">
+                    <div>
+                        <h4 class="text-xl font-bold text-gray-900 mb-1">${
+                          item.name
+                        }</h4>
+                        <p class="text-sm text-gray-500 mb-4">${
+                          item.description
+                        }</p>
+                    </div>
+                    <div class="flex justify-between items-center mt-auto">
+                        <span class="text-lg font-bold text-indigo-600">$${item.price.toFixed(
+                          2
+                        )}</span>
+                        <button class="addToCartButton bg-green-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-600 transition-colors duration-300" data-item-id="${
+                          item.id
+                        }" data-item-name="${item.name}" data-item-price="${
+            item.price
+          }">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `;
+          menuItemsContainer.innerHTML += itemHtml;
+        });
+
+        // Add event listeners to the new "Add to Cart" buttons
+        document.querySelectorAll(".addToCartButton").forEach((button) => {
+          button.addEventListener("click", (event) => {
+            const itemId = event.target.dataset.itemId;
+            const item = restaurant.menu.find((i) => i.id == itemId);
+            if (item) {
+              addToCart(item);
+            }
+          });
+        });
+      }
+
+      // Function to add an item to the cart
+      function addToCart(item) {
+        const existingItem = cart.find((cartItem) => cartItem.id === item.id);
+        if (existingItem) {
+          existingItem.quantity++;
+        } else {
+          cart.push({ ...item, quantity: 1 });
+        }
+        updateCartDisplay();
+      }
+
+      // Function to update the cart modal and count
+      function updateCartDisplay() {
+        cartItemsList.innerHTML = "";
+        let total = 0;
+        let totalCount = 0;
+
+        if (cart.length === 0) {
+          cartItemsList.innerHTML =
+            '<p class="text-center text-gray-500">Your cart is empty.</p>';
+          placeOrderButton.disabled = true;
+          placeOrderButton.classList.add("opacity-50", "cursor-not-allowed");
+        } else {
+          placeOrderButton.disabled = false;
+          placeOrderButton.classList.remove("opacity-50", "cursor-not-allowed");
+
+          cart.forEach((item) => {
+            const subtotal = item.price * item.quantity;
+            total += subtotal;
+            totalCount += item.quantity;
+            const cartItemHtml = `
+                    <div class="flex justify-between items-center py-2 border-b last:border-b-0">
+                        <div class="flex items-center space-x-4">
+                            <span class="text-gray-700 font-semibold">${
+                              item.name
+                            }</span>
+                            <span class="text-sm text-gray-500">x${
+                              item.quantity
+                            }</span>
+                        </div>
+                        <span class="font-bold text-gray-800">$${subtotal.toFixed(
+                          2
+                        )}</span>
+                    </div>
+                `;
+            cartItemsList.innerHTML += cartItemHtml;
+          });
+        }
+        cartTotalSpan.textContent = `$${total.toFixed(2)}`;
+        cartCountSpan.textContent = totalCount.toString();
+      }
+
+      // Event listeners
+      backButton.addEventListener("click", () => {
+        restaurantMenuSection.classList.add("hidden");
+        restaurantListSection.classList.remove("hidden");
+      });
+
+      cartButton.addEventListener("click", () => {
+        cartModal.classList.remove("hidden");
+      });
+
+      closeCartModal.addEventListener("click", () => {
+        cartModal.classList.add("hidden");
+      });
+
+      placeOrderButton.addEventListener("click", () => {
+        if (cart.length > 0) {
+          cartModal.classList.add("hidden");
+          confirmationModal.classList.remove("hidden");
+          cart = []; // Clear the cart
+          updateCartDisplay(); // Update display to show empty cart
+        }
+      });
+
+      closeConfirmationModal.addEventListener("click", () => {
+        confirmationModal.classList.add("hidden");
+      });
+
+      // Initial render
+      window.onload = () => {
+        renderRestaurants();
+        updateCartDisplay(); // Initialize cart display
+      };
+    </script>
+  </body>
+</html>
