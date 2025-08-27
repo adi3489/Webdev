@@ -119,17 +119,31 @@
               >
                 <i class="fas fa-search text-primary"></i>
               </button>
+              <!-- ...existing code... -->
               <a href="#" class="position-relative me-4 my-auto">
                 <i class="fa fa-shopping-bag fa-2x"></i>
                 <span
+                  id="cart-count"
                   class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                   style="top: -5px; left: 15px; height: 20px; min-width: 20px"
-                  >3</span
+                  >0</span
                 >
               </a>
-              <a href="#" class="my-auto">
-                <i class="fas fa-user fa-2x"></i>
-              </a>
+              <!-- ...existing code... -->
+              <button
+                class="btn btn-outline-primary me-2"
+                data-bs-toggle="modal"
+                data-bs-target="#signInModal"
+              >
+                Sign In
+              </button>
+              <button
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#signUpModal"
+              >
+                Sign Up
+              </button>
             </div>
           </div>
         </nav>
@@ -296,8 +310,8 @@
                 <i class="fas fa-exchange-alt fa-3x text-white"></i>
               </div>
               <div class="featurs-content text-center">
-                <h5>30 Day Return</h5>
-                <p class="mb-0">30 day money guarantee</p>
+                <h5>3 hour Return</h5>
+                <p class="mb-0">1 day money guarantee</p>
               </div>
             </div>
           </div>
@@ -2106,6 +2120,118 @@
       class="btn btn-primary border-3 border-primary rounded-circle back-to-top"
       ><i class="fa fa-arrow-up"></i
     ></a>
+    <!-- ...existing code... -->
+    <!-- Sign In Modal -->
+    <div
+      class="modal fade"
+      id="signInModal"
+      tabindex="-1"
+      aria-labelledby="signInModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content rounded">
+          <div class="modal-header">
+            <h5 class="modal-title" id="signInModalLabel">Sign In</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="signin-email" class="form-label"
+                  >Email address</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="signin-email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="signin-password" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="signin-password"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary w-100">
+                Sign In
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sign Up Modal -->
+    <div
+      class="modal fade"
+      id="signUpModal"
+      tabindex="-1"
+      aria-labelledby="signUpModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content rounded">
+          <div class="modal-header">
+            <h5 class="modal-title" id="signUpModalLabel">Sign Up</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <label for="signup-email" class="form-label"
+                  >Email address</label
+                >
+                <input
+                  type="email"
+                  class="form-control"
+                  id="signup-email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="signup-password" class="form-label">Password</label>
+                <input
+                  type="password"
+                  class="form-control"
+                  id="signup-password"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label for="signup-confirm-password" class="form-label"
+                  >Confirm Password</label
+                >
+                <input
+                  type="password"
+                  class="form-control"
+                  id="signup-confirm-password"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary w-100">
+                Sign Up
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ...existing code... -->
 
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -2117,5 +2243,31 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <!-- ...existing code... -->
+    <script>
+      let cartCount = 0;
+      function updateCartCount() {
+        document.getElementById("cart-count").textContent = cartCount;
+      }
+      document.addEventListener("DOMContentLoaded", function () {
+        updateCartCount();
+        document
+          .querySelectorAll(
+            ".btn.border.border-secondary.rounded-pill.px-3.text-primary"
+          )
+          .forEach(function (btn) {
+            btn.addEventListener("click", function (e) {
+              e.preventDefault();
+              cartCount++;
+              updateCartCount();
+              btn.textContent = "Added!";
+              setTimeout(() => {
+                btn.innerHTML =
+                  '<i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart';
+              }, 1000);
+            });
+          });
+      });
+    </script>
   </body>
 </html>
