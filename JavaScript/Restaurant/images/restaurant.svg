@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <rect width="200" height="200" fill="#f8f9fa" rx="10"/>
+  <rect x="40" y="80" width="120" height="80" fill="#ff6b35" opacity="0.8"/>
+  <rect x="50" y="90" width="40" height="30" fill="#fff"/>
+  <rect x="110" y="90" width="40" height="30" fill="#fff"/>
+  <rect x="70" y="130" width="60" height="30" fill="#fff"/>
+  <path d="M40,80 L100,40 L160,80" fill="#ffd23f"/>
+  <text x="100" y="180" text-anchor="middle" font-size="14" fill="#212529" font-family="Arial, sans-serif">Restaurant</text>
+</svg>

@@ -1,476 +1,611 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Aaja Khaja - Your Food Delivery Partner</title>
-    <!-- Tailwind CSS via CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for Icons -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    <meta charset="utf-8" />
+    <title>Khana Express - Fresh Indian Food Delivery</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta
+      content="Indian food delivery, fresh meals, online food order"
+      name="keywords"
+    />
+    <meta
+      content="Order fresh, authentic Indian food online with fast delivery across India"
+      name="description"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
       rel="stylesheet"
     />
-    <style>
-      body {
-        font-family: "Inter", sans-serif;
-        background-color: #f7f9fc;
-      }
-    </style>
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel="stylesheet" />
   </head>
-  <body class="bg-gray-100">
-    <!-- Navigation Bar -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-      <div
-        class="container mx-auto px-4 py-4 flex justify-between items-center"
-      >
-        <a href="#" class="text-3xl font-bold text-gray-800 tracking-wide"
-          >Aaja Khaja</a
-        >
-        <div class="relative">
-          <button
-            id="cartButton"
-            class="bg-indigo-600 text-white rounded-full p-3 shadow-lg hover:bg-indigo-700 transition-colors duration-300 transform hover:scale-105"
-          >
-            <i class="fas fa-shopping-cart text-lg"></i>
-            <span
-              id="cartCount"
-              class="absolute -top-1 -right-1 bg-red-600 text-xs text-white rounded-full h-5 w-5 flex items-center justify-center font-bold"
-              >0</span
+  <body>
+    <div
+      id="spinner"
+      class="show w-100 vh-100 bg-white position-fixed translate-middle top-50 start-50 d-flex align-items-center justify-content-center"
+    >
+      <div class="spinner-grow text-primary" role="status"></div>
+    </div>
+    <div class="container-fluid fixed-top">
+      <div class="container topbar bg-primary d-none d-lg-block">
+        <div class="d-flex justify-content-between">
+          <div class="top-info ps-2">
+            <small class="me-3">
+              <i class="fas fa-map-marker-alt me-2 text-white"></i>
+              <span class="text-white" id="current-location"
+                >Select Delivery Location</span
+              >
+            </small>
+            <small class="me-3">
+              <i class="fas fa-clock me-2 text-white"></i>
+              <span class="text-white">Delivery: 30-45 mins</span>
+            </small>
+            <small class="me-3">
+              <i class="fas fa-phone me-2 text-white"></i>
+              <a href="tel:+911800123456" class="text-white">1800-123-456</a>
+            </small>
+          </div>
+          <div class="top-link pe-2 user-links">
+            <a
+              href="#"
+              class="text-decoration-none me-3"
+              onclick="openLoginModal(); return false;"
             >
-          </button>
+              <i class="fas fa-sign-in-alt me-1 text-white"></i>
+              <small class="text-white">Login</small>
+            </a>
+            <a
+              href="#"
+              class="text-decoration-none"
+              onclick="openSignupModal(); return false;"
+            >
+              <i class="fas fa-user-plus me-1 text-white"></i>
+              <small class="text-white">Sign Up</small>
+            </a>
+          </div>
         </div>
       </div>
-    </nav>
-
-    <main class="container mx-auto px-4 py-8">
-      <!-- Main Restaurant Selection Section -->
-      <section id="restaurantList" class="space-y-6">
-        <h1 class="text-4xl font-extrabold text-gray-800 text-center mb-12">
-          Choose a Restaurant
-        </h1>
-        <div
-          id="restaurantCardsContainer"
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          <!-- Restaurant cards will be dynamically added here by JavaScript -->
+      <div class="container px-0">
+        <nav class="navbar navbar-light bg-white navbar-expand-xl">
+          <a href="#" class="navbar-brand">
+            <h1 class="text-primary display-6">🍛 Khana Express</h1>
+          </a>
+          <button
+            class="navbar-toggler py-2 px-3"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarCollapse"
+          >
+            <span class="fa fa-bars text-primary"></span>
+          </button>
+          <div class="collapse navbar-collapse bg-white" id="navbarCollapse">
+            <div class="navbar-nav mx-auto">
+              <a href="#home" class="nav-item nav-link active">Home</a>
+              <a href="#restaurants" class="nav-item nav-link">Restaurants</a>
+              <a href="#menu" class="nav-item nav-link">Menu</a>
+              <a href="#offers" class="nav-item nav-link">Offers</a>
+              <a href="#contact" class="nav-item nav-link">Contact</a>
+            </div>
+            <div class="d-flex m-3 me-0">
+              <button
+                class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
+                onclick="openLocationModal()"
+              >
+                <i class="fas fa-map-marker-alt text-primary"></i>
+              </button>
+              <div class="position-relative me-4 my-auto" onclick="openCart()">
+                <i class="fa fa-shopping-bag fa-2x text-primary"></i>
+                <span
+                  id="cart-count"
+                  class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1 cart-counter"
+                  style="top: -5px; left: 15px; height: 20px; min-width: 20px"
+                  >0</span
+                >
+              </div>
+              <a
+                href="#"
+                class="my-auto"
+                onclick="openProfileModal(); return false;"
+              >
+                <i class="fas fa-user fa-2x text-primary"></i>
+              </a>
+            </div>
+          </div>
+        </nav>
+      </div>
+    </div>
+    <div id="home" class="container-fluid py-5 mb-5 hero-header">
+      <div class="container py-5">
+        <div class="row g-5 align-items-center">
+          <div class="col-md-12 col-lg-7">
+            <h4 class="mb-3 text-secondary">🏠 Home Delivery Available</h4>
+            <h1 class="mb-5 display-3 text-primary">
+              Delicious Indian Food Delivered Fresh!
+            </h1>
+            <div class="location-selector">
+              <div class="d-flex align-items-center">
+                <i class="fas fa-map-marker-alt text-primary me-3"></i>
+                <input
+                  class="form-control border-0 flex-grow-1"
+                  type="text"
+                  id="location-input"
+                  placeholder="Enter your delivery address"
+                />
+                <button
+                  type="button"
+                  class="btn btn-primary ms-3"
+                  onclick="detectLocation()"
+                >
+                  <i class="fas fa-crosshairs me-2"></i>Detect
+                </button>
+              </div>
+            </div>
+            <div class="delivery-info mt-4">
+              <div class="row">
+                <div class="col-md-4 text-center">
+                  <i class="fas fa-motorcycle fa-2x mb-2"></i>
+                  <p class="mb-0">
+                    <strong>Free Delivery</strong><br />On orders above ₹299
+                  </p>
+                </div>
+                <div class="col-md-4 text-center">
+                  <i class="fas fa-clock fa-2x mb-2"></i>
+                  <p class="mb-0">
+                    <strong>30 Min Delivery</strong><br />Hot & Fresh food
+                  </p>
+                </div>
+                <div class="col-md-4 text-center">
+                  <i class="fas fa-utensils fa-2x mb-2"></i>
+                  <p class="mb-0">
+                    <strong>500+ Dishes</strong><br />From 100+ restaurants
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-5">
+            <div class="position-relative">
+              <img
+                src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'><rect width='400' height='300' fill='%23f8f9fa' rx='20'/><text x='200' y='120' text-anchor='middle' font-size='16' fill='%23666'>🍛 Delicious</text><text x='200' y='150' text-anchor='middle' font-size='16' fill='%23666'>Indian Thali</text><text x='200' y='180' text-anchor='middle' font-size='16' fill='%23666'>Fresh & Hot</text><circle cx='200' cy='220' r='30' fill='%23ff6b35'/><text x='200' y='230' text-anchor='middle' font-size='20' fill='white'>🍽️</text></svg>"
+                class="img-fluid w-100 rounded"
+                alt="Indian Food"
+              />
+            </div>
+          </div>
         </div>
-      </section>
-
-      <!-- Restaurant Menu Section (hidden by default) -->
-      <section id="restaurantMenu" class="space-y-6 hidden">
-        <button
-          id="backToRestaurants"
-          class="text-gray-600 hover:text-gray-800 font-semibold mb-4"
-        >
-          <i class="fas fa-arrow-left mr-2"></i> Back to Restaurants
-        </button>
-        <h1
-          id="menuTitle"
-          class="text-4xl font-extrabold text-gray-800 text-center mb-12"
-        ></h1>
-        <div
-          id="menuItemsContainer"
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-        >
-          <!-- Menu items will be dynamically added here by JavaScript -->
+      </div>
+    </div>
+    <div class="container-fluid py-5">
+      <div class="container py-5">
+        <div class="text-center mx-auto mb-5" style="max-width: 700px">
+          <h1 class="display-4">Popular Categories</h1>
+          <p>Explore authentic Indian cuisine from different regions</p>
         </div>
-      </section>
-
-      <!-- Cart Modal (hidden by default) -->
-      <div
-        id="cartModal"
-        class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden"
-      >
-        <div class="bg-white rounded-xl shadow-2xl p-8 w-full max-w-lg mx-4">
-          <div class="flex justify-between items-center mb-6 border-b pb-4">
-            <h2 class="text-3xl font-bold text-gray-800">Your Cart</h2>
-            <button
-              id="closeCartModal"
-              class="text-gray-400 hover:text-gray-600 transition-colors duration-200"
+        <div class="row g-4">
+          <div class="col-lg-2 col-md-4 col-6">
+            <div
+              class="text-center category-pill bg-light p-4 rounded-3"
+              onclick="filterCategory('north-indian')"
             >
-              <i class="fas fa-times text-xl"></i>
-            </button>
+              <div style="font-size: 3rem">🍛</div>
+              <h5 class="mt-3">North Indian</h5>
+            </div>
           </div>
-          <div id="cartItems" class="space-y-4 max-h-96 overflow-y-auto pr-2">
-            <!-- Cart items will be dynamically added here -->
+          <div class="col-lg-2 col-md-4 col-6">
+            <div
+              class="text-center category-pill bg-light p-4 rounded-3"
+              onclick="filterCategory('south-indian')"
+            >
+              <div style="font-size: 3rem">🥥</div>
+              <h5 class="mt-3">South Indian</h5>
+            </div>
           </div>
-          <div class="mt-6 pt-4 border-t">
-            <div class="flex justify-between items-center mb-4">
-              <span class="text-xl font-bold text-gray-700">Total:</span>
-              <span
-                id="cartTotal"
-                class="text-2xl font-extrabold text-indigo-600"
-                >$0.00</span
+          <div class="col-lg-2 col-md-4 col-6">
+            <div
+              class="text-center category-pill bg-light p-4 rounded-3"
+              onclick="filterCategory('chinese')"
+            >
+              <div style="font-size: 3rem">🍜</div>
+              <h5 class="mt-3">Chinese</h5>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-4 col-6">
+            <div
+              class="text-center category-pill bg-light p-4 rounded-3"
+              onclick="filterCategory('biryani')"
+            >
+              <div style="font-size: 3rem">🍚</div>
+              <h5 class="mt-3">Biryani</h5>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-4 col-6">
+            <div
+              class="text-center category-pill bg-light p-4 rounded-3"
+              onclick="filterCategory('desserts')"
+            >
+              <div style="font-size: 3rem">🍰</div>
+              <h5 class="mt-3">Desserts</h5>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-4 col-6">
+            <div
+              class="text-center category-pill bg-light p-4 rounded-3"
+              onclick="filterCategory('beverages')"
+            >
+              <div style="font-size: 3rem">🥤</div>
+              <h5 class="mt-3">Beverages</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="restaurants" class="container-fluid py-5 bg-light">
+      <div class="container py-5">
+        <div class="text-center mx-auto mb-5" style="max-width: 700px">
+          <h1 class="display-4">Featured Restaurants</h1>
+          <p>Top-rated restaurants delivering in your area</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <div class="restaurant-card bg-white">
+              <div class="position-relative">
+                <img
+                  src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23ff6b35'/><text x='150' y='100' text-anchor='middle' font-size='20' fill='white'>Spice Palace</text><text x='150' y='130' text-anchor='middle' font-size='14' fill='white'>Authentic Indian Cuisine</text></svg>"
+                  class="img-fluid w-100"
+                  alt="Restaurant"
+                />
+                <span class="delivery-time position-absolute top-0 end-0 m-2"
+                  >25-30 mins</span
+                >
+              </div>
+              <div class="p-4">
+                <div
+                  class="d-flex justify-content-between align-items-start mb-2"
+                >
+                  <h5>Spice Palace</h5>
+                  <div class="rating-stars">
+                    <i class="fas fa-star"></i>
+                    <span>4.5</span>
+                  </div>
+                </div>
+                <p class="text-muted mb-2">North Indian, Mughlai, Tandoor</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <small class="text-muted">₹300 for two</small>
+                  <button
+                    class="btn btn-primary btn-sm"
+                    onclick="openRestaurant('spice-palace')"
+                  >
+                    Order Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="restaurant-card bg-white">
+              <div class="position-relative">
+                <img
+                  src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200'><rect width='300' height='200' fill='%2328a745'/><text x='150' y='100' text-anchor='middle' font-size='20' fill='white'>Dosa Corner</text><text x='150' y='130' text-anchor='middle' font-size='14' fill='white'>South Indian Delights</text></svg>"
+                  class="img-fluid w-100"
+                  alt="Restaurant"
+                />
+                <span class="delivery-time position-absolute top-0 end-0 m-2"
+                  >20-25 mins</span
+                >
+              </div>
+              <div class="p-4">
+                <div
+                  class="d-flex justify-content-between align-items-start mb-2"
+                >
+                  <h5>Dosa Corner</h5>
+                  <div class="rating-stars">
+                    <i class="fas fa-star"></i>
+                    <span>4.3</span>
+                  </div>
+                </div>
+                <p class="text-muted mb-2">South Indian, Dosa, Idli</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <small class="text-muted">₹200 for two</small>
+                  <button
+                    class="btn btn-primary btn-sm"
+                    onclick="openRestaurant('dosa-corner')"
+                  >
+                    Order Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="restaurant-card bg-white">
+              <div class="position-relative">
+                <img
+                  src="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 200'><rect width='300' height='200' fill='%23ffd23f'/><text x='150' y='100' text-anchor='middle' font-size='20' fill='black'>Biryani House</text><text x='150' y='130' text-anchor='middle' font-size='14' fill='black'>Authentic Biryani</text></svg>"
+                  class="img-fluid w-100"
+                  alt="Restaurant"
+                />
+                <span class="delivery-time position-absolute top-0 end-0 m-2"
+                  >30-35 mins</span
+                >
+              </div>
+              <div class="p-4">
+                <div
+                  class="d-flex justify-content-between align-items-start mb-2"
+                >
+                  <h5>Biryani House</h5>
+                  <div class="rating-stars">
+                    <i class="fas fa-star"></i>
+                    <span>4.7</span>
+                  </div>
+                </div>
+                <p class="text-muted mb-2">Biryani, Kebab, Hyderabadi</p>
+                <div class="d-flex justify-content-between align-items-center">
+                  <small class="text-muted">₹400 for two</small>
+                  <button
+                    class="btn btn-primary btn-sm"
+                    onclick="openRestaurant('biryani-house')"
+                  >
+                    Order Now
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="menu" class="container-fluid py-5">
+      <div class="container py-5">
+        <div class="text-center mx-auto mb-5" style="max-width: 700px">
+          <h1 class="display-4">Popular Dishes</h1>
+          <p>Most ordered items across all restaurants</p>
+        </div>
+        <div class="row g-4" id="menu-items"></div>
+      </div>
+    </div>
+    <div id="offers" class="container-fluid py-5 bg-light">
+      <div class="container py-5">
+        <div class="text-center mx-auto mb-5" style="max-width: 700px">
+          <h1 class="display-4">Today's Special Offers</h1>
+          <p>Don't miss out on these amazing deals!</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <div class="bg-primary text-white p-4 rounded-3 text-center">
+              <h2 class="mb-3">🎉 WELCOME50</h2>
+              <h4>50% OFF</h4>
+              <p class="mb-3">On your first order above ₹499</p>
+              <small>Valid till midnight</small>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="bg-success text-white p-4 rounded-3 text-center">
+              <h2 class="mb-3">🍕 COMBO25</h2>
+              <h4>25% OFF</h4>
+              <p class="mb-3">On combo meals</p>
+              <small>Min order ₹299</small>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-4">
+            <div class="bg-warning text-dark p-4 rounded-3 text-center">
+              <h2 class="mb-3">🚚 FREEDEL</h2>
+              <h4>Free Delivery</h4>
+              <p class="mb-3">No delivery charges</p>
+              <small>On all orders today</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="contact" class="container-fluid py-5">
+      <div class="container py-5">
+        <div class="text-center mx-auto mb-5" style="max-width: 700px">
+          <h1 class="display-4">Get In Touch</h1>
+          <p>We're here to help you with any questions or concerns</p>
+        </div>
+        <div class="row g-4">
+          <div class="col-lg-6">
+            <div class="row g-4">
+              <div class="col-md-6">
+                <div class="bg-light p-4 rounded text-center">
+                  <i class="fas fa-phone fa-3x text-primary mb-3"></i>
+                  <h5>Call Us</h5>
+                  <p>1800-123-456<br />24/7 Support</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="bg-light p-4 rounded text-center">
+                  <i class="fas fa-envelope fa-3x text-primary mb-3"></i>
+                  <h5>Email Us</h5>
+                  <p>support@khanaexpress.com<br />Quick Response</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="bg-light p-4 rounded text-center">
+                  <i class="fas fa-map-marker-alt fa-3x text-primary mb-3"></i>
+                  <h5>Visit Us</h5>
+                  <p>Delhi, Mumbai, Bangalore<br />And 50+ cities</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="bg-light p-4 rounded text-center">
+                  <i class="fas fa-clock fa-3x text-primary mb-3"></i>
+                  <h5>Working Hours</h5>
+                  <p>6:00 AM - 2:00 AM<br />7 days a week</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <form class="bg-light p-4 rounded">
+              <div class="mb-3">
+                <label class="form-label">Your Name</label>
+                <input type="text" class="form-control" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Your Email</label>
+                <input type="email" class="form-control" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Subject</label>
+                <input type="text" class="form-control" required />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Message</label>
+                <textarea class="form-control" rows="5" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">
+                Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid bg-dark text-white-50 footer pt-5 mt-5">
+      <div class="container py-5">
+        <div
+          class="pb-4 mb-4"
+          style="border-bottom: 1px solid rgba(226, 175, 24, 0.5)"
+        >
+          <div class="row g-4">
+            <div class="col-lg-3">
+              <a href="#">
+                <h1 class="text-primary mb-0">🍛 Khana Express</h1>
+                <p class="text-secondary mb-0">Delivering happiness</p>
+              </a>
+            </div>
+            <div class="col-lg-6">
+              <div class="position-relative mx-auto">
+                <input
+                  class="form-control border-0 w-100 py-3 px-4 rounded-pill"
+                  type="email"
+                  placeholder="Subscribe to our newsletter"
+                />
+                <button
+                  type="submit"
+                  class="btn btn-primary border-0 border-secondary py-3 px-4 position-absolute rounded-pill text-white"
+                  style="top: 0; right: 0"
+                >
+                  Subscribe
+                </button>
+              </div>
+            </div>
+            <div class="col-lg-3">
+              <div class="d-flex justify-content-end pt-3">
+                <a
+                  class="btn btn-outline-secondary me-2 rounded-circle"
+                  href="#"
+                  ><i class="fab fa-twitter"></i
+                ></a>
+                <a
+                  class="btn btn-outline-secondary me-2 rounded-circle"
+                  href="#"
+                  ><i class="fab fa-facebook-f"></i
+                ></a>
+                <a
+                  class="btn btn-outline-secondary me-2 rounded-circle"
+                  href="#"
+                  ><i class="fab fa-youtube"></i
+                ></a>
+                <a class="btn btn-outline-secondary rounded-circle" href="#"
+                  ><i class="fab fa-linkedin-in"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row g-5">
+          <div class="col-lg-3 col-md-6">
+            <div class="footer-item">
+              <h4 class="text-light mb-3">Why Khana Express?</h4>
+              <p class="mb-4">
+                We are committed to delivering fresh, hot, and authentic Indian
+                food right to your doorstep. With a wide variety of dishes and
+                fast delivery, your next meal is just a click away.
+              </p>
+              <a
+                href=""
+                class="btn border-secondary py-2 px-4 rounded-pill text-primary"
+                >Read More</a
               >
             </div>
-            <button
-              id="placeOrderButton"
-              class="w-full bg-green-600 text-white font-bold py-3 rounded-lg shadow-lg hover:bg-green-700 transition-colors duration-300 transform hover:scale-105"
-            >
-              Place Order
-            </button>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="d-flex flex-column text-start footer-item">
+              <h4 class="text-light mb-3">Quick Links</h4>
+              <a class="btn-link" href="#home">Home</a>
+              <a class="btn-link" href="#restaurants">Restaurants</a>
+              <a class="btn-link" href="#menu">Menu</a>
+              <a class="btn-link" href="#offers">Offers</a>
+              <a class="btn-link" href="#contact">Contact Us</a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="d-flex flex-column text-start footer-item">
+              <h4 class="text-light mb-3">Account</h4>
+              <a
+                class="btn-link"
+                href="#"
+                data-bs-toggle="modal"
+                data-bs-target="#profileModal"
+                >My Account</a
+              >
+              <a class="btn-link" href="#" onclick="openCart()">My Cart</a>
+              <a class="btn-link" href="#">Order History</a>
+              <a class="btn-link" href="#">Help & Support</a>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="footer-item">
+              <h4 class="text-light mb-3">Contact</h4>
+              <p>Address: 123 Street, New Delhi, India</p>
+              <p>Email: info@khanaexpress.com</p>
+              <p>Phone: +012 345 67890</p>
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- Confirmation Modal (hidden by default) -->
-      <div
-        id="confirmationModal"
-        class="fixed inset-0 bg-gray-900 bg-opacity-75 flex items-center justify-center z-50 hidden"
-      >
-        <div
-          class="bg-white rounded-xl shadow-2xl p-8 w-full max-w-sm mx-4 text-center"
-        >
-          <i
-            class="fas fa-check-circle text-green-500 text-6xl mb-4 animate-bounce"
-          ></i>
-          <h2 class="text-3xl font-bold text-gray-800 mb-2">Order Placed!</h2>
-          <p class="text-gray-600 mb-6">Your delicious food is on its way!</p>
-          <button
-            id="closeConfirmationModal"
-            class="bg-indigo-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-indigo-700 transition-colors duration-300"
-          >
-            OK
-          </button>
+    </div>
+    <div class="container-fluid copyright bg-dark py-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
+            <span class="text-light">
+              <a href="#"
+                ><i class="fas fa-copyright text-light me-2"></i>Khana
+                Express</a
+              >, All Right Reserved.
+            </span>
+          </div>
+          <div class="col-md-6 my-auto text-center text-md-end text-white">
+            Designed By
+            <a class="border-bottom" href="#">HTML Codex</a> Distributed By
+            <a class="border-bottom" href="#">ThemeWagon</a>
+          </div>
         </div>
       </div>
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-400 py-6 mt-12">
-      <div class="container mx-auto px-4 text-center">
-        <p>&copy; 2024 Aaja Khaja. All rights reserved.</p>
-      </div>
-    </footer>
-
-    <script>
-      // In-memory data to simulate a database for restaurants and their menus
-      const restaurants = [
-        {
-          id: "dhabas-delight",
-          name: "Dhaba's Delight",
-          cuisine: "Indian",
-          rating: 4.5,
-          image:
-            "https://placehold.co/400x250/a78bfa/ffffff?text=Dhaba's+Delight",
-          menu: [
-            {
-              id: 1,
-              name: "Butter Chicken",
-              price: 12.5,
-              description: "Creamy tomato-based curry with tender chicken.",
-            },
-            {
-              id: 2,
-              name: "Paneer Tikka Masala",
-              price: 11.0,
-              description: "Grilled cottage cheese in a rich, spicy gravy.",
-            },
-            {
-              id: 3,
-              name: "Naan Bread",
-              price: 2.0,
-              description: "Soft, leavened flatbread.",
-            },
-          ],
-        },
-        {
-          id: "taste-of-italy",
-          name: "Taste of Italy",
-          cuisine: "Italian",
-          rating: 4.8,
-          image:
-            "https://placehold.co/400x250/fca5a5/ffffff?text=Taste+of+Italy",
-          menu: [
-            {
-              id: 4,
-              name: "Margherita Pizza",
-              price: 15.0,
-              description: "Classic pizza with fresh mozzarella and basil.",
-            },
-            {
-              id: 5,
-              name: "Spaghetti Carbonara",
-              price: 14.5,
-              description: "Pasta with creamy sauce, egg, and bacon.",
-            },
-            {
-              id: 6,
-              name: "Lasagna",
-              price: 16.0,
-              description: "Layered pasta with meat and cheese.",
-            },
-          ],
-        },
-        {
-          id: "sushi-corner",
-          name: "Sushi Corner",
-          cuisine: "Japanese",
-          rating: 4.7,
-          image: "https://placehold.co/400x250/93c5fd/ffffff?text=Sushi+Corner",
-          menu: [
-            {
-              id: 7,
-              name: "California Roll",
-              price: 9.5,
-              description: "Crab, avocado, and cucumber roll.",
-            },
-            {
-              id: 8,
-              name: "Sake Nigiri",
-              price: 11.0,
-              description: "Fresh salmon on a bed of rice.",
-            },
-            {
-              id: 9,
-              name: "Edamame",
-              price: 5.0,
-              description: "Steamed soybeans with sea salt.",
-            },
-          ],
-        },
-        {
-          id: "burrito-bros",
-          name: "Burrito Bros",
-          cuisine: "Mexican",
-          rating: 4.3,
-          image: "https://placehold.co/400x250/a5f3fc/ffffff?text=Burrito+Bros",
-          menu: [
-            {
-              id: 10,
-              name: "Chicken Burrito",
-              price: 10.0,
-              description:
-                "Large flour tortilla with grilled chicken and toppings.",
-            },
-            {
-              id: 11,
-              name: "Guacamole & Chips",
-              price: 6.5,
-              description: "Fresh avocado dip with crispy tortilla chips.",
-            },
-            {
-              id: 12,
-              name: "Taco Salad",
-              price: 9.0,
-              description:
-                "Crispy taco shell filled with fresh salad and beans.",
-            },
-          ],
-        },
-      ];
-
-      let cart = [];
-
-      // DOM Elements
-      const restaurantListSection = document.getElementById("restaurantList");
-      const restaurantMenuSection = document.getElementById("restaurantMenu");
-      const menuTitle = document.getElementById("menuTitle");
-      const restaurantCardsContainer = document.getElementById(
-        "restaurantCardsContainer"
-      );
-      const menuItemsContainer = document.getElementById("menuItemsContainer");
-      const backButton = document.getElementById("backToRestaurants");
-      const cartButton = document.getElementById("cartButton");
-      const cartModal = document.getElementById("cartModal");
-      const closeCartModal = document.getElementById("closeCartModal");
-      const cartItemsList = document.getElementById("cartItems");
-      const cartTotalSpan = document.getElementById("cartTotal");
-      const cartCountSpan = document.getElementById("cartCount");
-      const placeOrderButton = document.getElementById("placeOrderButton");
-      const confirmationModal = document.getElementById("confirmationModal");
-      const closeConfirmationModal = document.getElementById(
-        "closeConfirmationModal"
-      );
-
-      // Function to render the list of restaurants
-      function renderRestaurants() {
-        restaurantCardsContainer.innerHTML = ""; // Clear existing cards
-        restaurants.forEach((restaurant) => {
-          const cardHtml = `
-                <div class="bg-white rounded-xl shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden cursor-pointer transform hover:scale-105" data-restaurant-id="${
-                  restaurant.id
-                }">
-                    <img src="${restaurant.image}" alt="${
-            restaurant.name
-          }" class="w-full h-48 object-cover">
-                    <div class="p-6">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-2">${
-                          restaurant.name
-                        }</h3>
-                        <p class="text-gray-600 mb-3">${restaurant.cuisine}</p>
-                        <div class="flex items-center text-yellow-500 mb-4">
-                            ${'<i class="fas fa-star"></i>'.repeat(
-                              Math.floor(restaurant.rating)
-                            )}
-                            <span class="text-gray-500 ml-2 font-semibold">${
-                              restaurant.rating
-                            }</span>
-                        </div>
-                        <button class="w-full bg-indigo-600 text-white py-2 rounded-lg font-semibold hover:bg-indigo-700 transition-colors duration-300">
-                            View Menu
-                        </button>
-                    </div>
-                </div>
-            `;
-          restaurantCardsContainer.innerHTML += cardHtml;
-        });
-
-        // Add event listeners to the new restaurant cards
-        document
-          .querySelectorAll("#restaurantCardsContainer .bg-white")
-          .forEach((card) => {
-            card.addEventListener("click", (event) => {
-              const restaurantId = event.currentTarget.dataset.restaurantId;
-              const selectedRestaurant = restaurants.find(
-                (r) => r.id === restaurantId
-              );
-              if (selectedRestaurant) {
-                renderMenu(selectedRestaurant);
-              }
-            });
-          });
-      }
-
-      // Function to render the menu of a specific restaurant
-      function renderMenu(restaurant) {
-        // Show the menu section and hide the restaurant list
-        restaurantListSection.classList.add("hidden");
-        restaurantMenuSection.classList.remove("hidden");
-        menuTitle.textContent = restaurant.name;
-
-        menuItemsContainer.innerHTML = ""; // Clear existing menu items
-        restaurant.menu.forEach((item) => {
-          const itemHtml = `
-                <div class="bg-white rounded-xl shadow-lg p-6 flex flex-col justify-between">
-                    <div>
-                        <h4 class="text-xl font-bold text-gray-900 mb-1">${
-                          item.name
-                        }</h4>
-                        <p class="text-sm text-gray-500 mb-4">${
-                          item.description
-                        }</p>
-                    </div>
-                    <div class="flex justify-between items-center mt-auto">
-                        <span class="text-lg font-bold text-indigo-600">$${item.price.toFixed(
-                          2
-                        )}</span>
-                        <button class="addToCartButton bg-green-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-green-600 transition-colors duration-300" data-item-id="${
-                          item.id
-                        }" data-item-name="${item.name}" data-item-price="${
-            item.price
-          }">
-                            Add to Cart
-                        </button>
-                    </div>
-                </div>
-            `;
-          menuItemsContainer.innerHTML += itemHtml;
-        });
-
-        // Add event listeners to the new "Add to Cart" buttons
-        document.querySelectorAll(".addToCartButton").forEach((button) => {
-          button.addEventListener("click", (event) => {
-            const itemId = event.target.dataset.itemId;
-            const item = restaurant.menu.find((i) => i.id == itemId);
-            if (item) {
-              addToCart(item);
-            }
-          });
-        });
-      }
-
-      // Function to add an item to the cart
-      function addToCart(item) {
-        const existingItem = cart.find((cartItem) => cartItem.id === item.id);
-        if (existingItem) {
-          existingItem.quantity++;
-        } else {
-          cart.push({ ...item, quantity: 1 });
-        }
-        updateCartDisplay();
-      }
-
-      // Function to update the cart modal and count
-      function updateCartDisplay() {
-        cartItemsList.innerHTML = "";
-        let total = 0;
-        let totalCount = 0;
-
-        if (cart.length === 0) {
-          cartItemsList.innerHTML =
-            '<p class="text-center text-gray-500">Your cart is empty.</p>';
-          placeOrderButton.disabled = true;
-          placeOrderButton.classList.add("opacity-50", "cursor-not-allowed");
-        } else {
-          placeOrderButton.disabled = false;
-          placeOrderButton.classList.remove("opacity-50", "cursor-not-allowed");
-
-          cart.forEach((item) => {
-            const subtotal = item.price * item.quantity;
-            total += subtotal;
-            totalCount += item.quantity;
-            const cartItemHtml = `
-                    <div class="flex justify-between items-center py-2 border-b last:border-b-0">
-                        <div class="flex items-center space-x-4">
-                            <span class="text-gray-700 font-semibold">${
-                              item.name
-                            }</span>
-                            <span class="text-sm text-gray-500">x${
-                              item.quantity
-                            }</span>
-                        </div>
-                        <span class="font-bold text-gray-800">$${subtotal.toFixed(
-                          2
-                        )}</span>
-                    </div>
-                `;
-            cartItemsList.innerHTML += cartItemHtml;
-          });
-        }
-        cartTotalSpan.textContent = `$${total.toFixed(2)}`;
-        cartCountSpan.textContent = totalCount.toString();
-      }
-
-      // Event listeners
-      backButton.addEventListener("click", () => {
-        restaurantMenuSection.classList.add("hidden");
-        restaurantListSection.classList.remove("hidden");
-      });
-
-      cartButton.addEventListener("click", () => {
-        cartModal.classList.remove("hidden");
-      });
-
-      closeCartModal.addEventListener("click", () => {
-        cartModal.classList.add("hidden");
-      });
-
-      placeOrderButton.addEventListener("click", () => {
-        if (cart.length > 0) {
-          cartModal.classList.add("hidden");
-          confirmationModal.classList.remove("hidden");
-          cart = []; // Clear the cart
-          updateCartDisplay(); // Update display to show empty cart
-        }
-      });
-
-      closeConfirmationModal.addEventListener("click", () => {
-        confirmationModal.classList.add("hidden");
-      });
-
-      // Initial render
-      window.onload = () => {
-        renderRestaurants();
-        updateCartDisplay(); // Initialize cart display
-      };
-    </script>
+    </div>
+    <a href="#" class="btn btn-primary btn-lg-square rounded-circle back-to-top"
+      ><i class="fa fa-arrow-up"></i
+    ></a>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="js/main.js"></script>
   </body>
 </html>
